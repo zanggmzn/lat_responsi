@@ -80,9 +80,9 @@ class _HalamanOlahragaState extends State<HalamanOlahraga> {
     //nama=>nama di api
     var title = item['title'];
     var thumbnail = item['thumbnail'];
-    var shortDescription = item['description'];
+    var pubDate = item['pubDate'];
+    var description = item['description'];
     var link = item['link'];
-    // var publisher = item['publisher'];
 
     return Card(
         margin: const EdgeInsets.all(10),
@@ -91,7 +91,8 @@ class _HalamanOlahragaState extends State<HalamanOlahraga> {
               builder: (context) => ProductDetail(
                     title: title,
                     thumbnail: thumbnail,
-                    short_description: shortDescription,
+                    pubDate: pubDate,
+                    description: description,
                     link: link,
                   ))),
           child: Container(

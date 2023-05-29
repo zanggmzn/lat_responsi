@@ -3,16 +3,19 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetail extends StatelessWidget {
   String title;
+  String pubDate;
   String thumbnail;
-  String short_description;
+  String description;
   String link;
 
   ProductDetail({
+    Key? key,
     required this.title,
+    required this.pubDate,
     required this.thumbnail,
-    required this.short_description,
-    required this.link,
-  });
+    required this.description,
+    required this.link
+  }) : super(key: key);
 
   final Uri _url = Uri.parse('https://flutter.dev');
   //
@@ -30,119 +33,83 @@ class ProductDetail extends StatelessWidget {
     return Scaffold(
         backgroundColor: const Color(0xfff0f1f5),
         appBar: AppBar(
-            title: Text(title.toString()),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                  onPressed: () async {
-                    await goToWebPage(link.toString());
-                  },
-                  icon: Icon(Icons.search, color: Colors.white)),
-            ],
-            backgroundColor: Color.fromARGB(255, 164, 89, 123)),
+            title: Text("CNN News"),
+            centerTitle: true),
         body: Center(
             child: Container(
-          padding: const EdgeInsets.all(18),
-          height: size.height,
-          width: size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: size.width * 0.4,
-                height: size.height * 0.2,
-                child: Image.network(
-                  width: 60,
-                  height: 130,
-                  thumbnail.toString(),
-                  fit: BoxFit.fill,
-                ),
-              ),
-              Card(
-                child: Container(
-                  height: 150,
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(5),
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Produk: $title",
-                              style: TextStyle(fontSize: 16),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(
-                              height: 7,
-                            ),
-                            Text(
-                              "Harga: ",
-                              style: TextStyle(fontSize: 16),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(
-                              height: 7,
-                            ),
-                            Text(
-                              "Rating: ",
-                              style: TextStyle(fontSize: 16),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(
-                              height: 7,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+              padding: const EdgeInsets.all(18),
+              height: size.height,
+              width: size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(title.toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                  BoxShadow(
-                    color: Colors.blueGrey.withOpacity(0.10),
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(0, 10),
+                  Text(pubDate.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: size.width * 0.4,
+                    height: size.height * 0.2,
+                    child: Image.network(
+                      thumbnail.toString(),
+                      width: 60,
+                      height: 130,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                      BoxShadow(
+                        color: Colors.blueGrey.withOpacity(0.10),
+                        spreadRadius: 3,
+                        blurRadius: 10,
+                        offset: Offset(0, 10),
+                      )
+                    ]),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            description.toString(),
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              wordSpacing: 3,
+                            ),
+                            maxLines: 11,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  TextButton(onPressed: () async {
+                    await goToWebPage(link.toString());
+                  },
+                      child: Text("Baca Selengkapnya..."),
                   )
-                ]),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        short_description.toString(),
-                        textAlign: TextAlign.justify,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          wordSpacing: 3,
-                        ),
-                        maxLines: 11,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
+                ],
               ),
-            ],
-          ),
-        )));
+            )));
   }
 }

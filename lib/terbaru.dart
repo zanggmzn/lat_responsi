@@ -80,7 +80,8 @@ class _HalamanTerbaruState extends State<HalamanTerbaru> {
     //nama=>nama di api
     var title = item['title'];
     var thumbnail = item['thumbnail'];
-    var shortDescription = item['description'];
+    var pubDate = item['pubDate'];
+    var description = item['description'];
     var link = item['link'];
     // var publisher = item['publisher'];
 
@@ -91,7 +92,8 @@ class _HalamanTerbaruState extends State<HalamanTerbaru> {
               builder: (context) => ProductDetail(
                     title: title,
                     thumbnail: thumbnail,
-                    short_description: shortDescription,
+                    pubDate: pubDate,
+                    description: description,
                     link: link,
                   ))),
           child: Container(

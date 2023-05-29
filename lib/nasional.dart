@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lat_responsi/detail.dart';
+
 class HalamanNasional extends StatefulWidget {
   const HalamanNasional({super.key});
 
@@ -10,7 +11,6 @@ class HalamanNasional extends StatefulWidget {
 }
 
 class _HalamanNasionalState extends State<HalamanNasional> {
-  
   List<Map<String, dynamic>> home = [];
   bool load = false;
 
@@ -80,19 +80,20 @@ class _HalamanNasionalState extends State<HalamanNasional> {
     //nama=>nama di api
     var title = item['title'];
     var thumbnail = item['thumbnail'];
-    var shortDescription = item['description'];
+    var pubDate = item['pubDate'];
+    var description = item['description'];
     var link = item['link'];
-    // var publisher = item['publisher'];
 
     return Card(
         margin: const EdgeInsets.all(10),
         child: InkWell(
           onTap: () => Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => ProductDetail(
-                  title: title,
-                  thumbnail: thumbnail,
-                  short_description: shortDescription,
-                  link: link,
+                    title: title,
+                    thumbnail: thumbnail,
+                    pubDate: pubDate,
+                    description: description,
+                    link: link,
                   ))),
           child: Container(
             height: MediaQuery.of(context).size.height / 7,
