@@ -34,6 +34,7 @@ class _HalamanTeknologiState extends State<HalamanTeknologi> {
         home = items
             .map((item) => {
                   'title': item['title'],
+                  'pubDate': item['pubDate'],
                   'thumbnail': item['thumbnail'],
                   'description': item['description'],
                   'link': item['link'],

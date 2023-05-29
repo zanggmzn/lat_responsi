@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class ProductDetail extends StatelessWidget {
   String title;
@@ -8,14 +9,14 @@ class ProductDetail extends StatelessWidget {
   String description;
   String link;
 
-  ProductDetail({
-    Key? key,
-    required this.title,
-    required this.pubDate,
-    required this.thumbnail,
-    required this.description,
-    required this.link
-  }) : super(key: key);
+  ProductDetail(
+      {Key? key,
+      required this.title,
+      required this.pubDate,
+      required this.thumbnail,
+      required this.description,
+      required this.link})
+      : super(key: key);
 
   final Uri _url = Uri.parse('https://flutter.dev');
   //
@@ -31,85 +32,95 @@ class ProductDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: const Color(0xfff0f1f5),
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         appBar: AppBar(
             title: Text("CNN News"),
+            backgroundColor: Color.fromARGB(255, 255, 0, 0),
             centerTitle: true),
-        body: Center(
-            child: Container(
-              padding: const EdgeInsets.all(18),
-              height: size.height,
-              width: size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(title.toString(),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(pubDate.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.4,
-                    height: size.height * 0.2,
+        body: Container(
+          padding: const EdgeInsets.all(18),
+          height: size.height,
+          width: size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title.toString(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                DateFormat('EEEE, dd MMMM yyyy')
+                    .format(DateTime.parse(pubDate)),
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: size.width * 1.0,
+                height: size.height * 0.2,
+                child: Center(
+                  child: Expanded(
                     child: Image.network(
                       thumbnail.toString(),
-                      width: 60,
-                      height: 130,
                       fit: BoxFit.fill,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                      BoxShadow(
-                        color: Colors.blueGrey.withOpacity(0.10),
-                        spreadRadius: 3,
-                        blurRadius: 10,
-                        offset: Offset(0, 10),
-                      )
-                    ]),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            description.toString(),
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              wordSpacing: 3,
-                            ),
-                            maxLines: 11,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        description.toString(),
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          wordSpacing: 3,
+                        ),
+                        maxLines: 11,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
+                    ],
                   ),
-                  TextButton(onPressed: () async {
+                ),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              Center(
+                child: TextButton(
+                  onPressed: () async {
                     await goToWebPage(link.toString());
                   },
-                      child: Text("Baca Selengkapnya..."),
-                  )
-                ],
-              ),
-            )));
+                  child: const Text(
+                    "Baca Selengkapnya...",
+                    style: TextStyle(
+                      color: Colors.red, // Ganti dengan warna yang diinginkan
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
